@@ -10,7 +10,7 @@ class PushMyPost(DiasporaPusher):
         self.main()
 
     def main(self):
-        mypath = '_posts/'
+        mypath = '/home/gem/fun/gemiam/_posts/'
         files = [ f for f in listdir(mypath) if isfile(join(mypath,f)) ]
         new_post_date = datetime.strptime('Jun 1 2005  1:33PM', '%b %d %Y %I:%M%p')
         pattern = '([0-9]*-[0-9]*-[0-9]*)-(.*)\.md'

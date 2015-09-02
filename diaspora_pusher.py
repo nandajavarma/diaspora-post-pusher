@@ -26,20 +26,22 @@ class DiasporaPusher(object):
             name = meta.get("name")
             if name:
                 if "title" in name:
-                    title = meta["content"].strip()
+                    title = '<a href="%s">' % self.post_url + meta["content"].strip() + '</a>'
                 if name == "description":
-                    description = meta["content"].strip()
+                    description = " - " + meta["content"].strip() + "\n"
                 if name == "keywords":
-                    tags = meta["content"].strip()
+                    tags = "tags: " + meta["content"].strip()
         return title + description + tags
 
 
 
     def post_entry(self):
         print('Posting entry to D*')
-        client = diaspy.connection.Connection(self.pod_url, self.username, self.password)
+        c = diaspy.connection.Connection(self.pod_url, self.username, self.password)
+        c.login()
+        stream = diaspy.streams.Stream(c)
         post = self.get_post_title()
-        client.post('status_messages', post)
+        stream.post(post)
 
 
 
